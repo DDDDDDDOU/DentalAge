@@ -1,0 +1,74 @@
+
+.genderButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.genderButton {
+    margin: 10px 5vw;
+    outline: none;
+    border: none;
+    padding: 10px 30px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color .3s;
+}
+
+.genderButton:hover {
+    transition: all .3s;
+    font-weight: 600;
+}
+
+.maleButton {
+    /*background-color: #0099FF;*/
+}
+
+.maleButton:hover {
+    background-color: #0066FF;
+}
+
+.maleSelected {
+    background-color: #0066FF;
+    font-weight: 600;
+}
+
+.femaleButton {
+    /*background-color: #FF99FF;*/
+}
+
+.femaleButton:hover {
+    background-color: #FF33FF;
+}
+
+.femaleSelected{
+    background-color: #FF33FF;
+    font-weight: 600;
+}
+
+.predButton {
+    padding: 10px 40px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 10px;
+    margin-right: 5vw;
+}
+
+.predButtonContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.dentalAgeLabel {
+    display: flex;
+    justify-content: center;
+
+}

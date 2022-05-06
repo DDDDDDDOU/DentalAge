@@ -1,0 +1,83 @@
+body {
+    background: black;
+    font-family: Arial, sans-serif;
+}
+
+@keyframes burn {
+    0%, 100% { border-radius: 5% 87% 45% 85%; width: 30vmin; }
+    20% { border-radius: 5% 85% 49% 82%; }
+    40% { border-radius: 0% 85% 45% 87%; width: 28vmin; }
+    60% { border-radius: 2% 87% 42% 90%; }
+    80% { border-radius: 5% 97% 45% 88%; width: 31vmin; }
+}
+
+/* see comment below */
+#animation:checked ~ .match {
+    animation: burn 4s infinite;
+    width: 50vmin;
+}
+
+.match {
+    /*
+    The animation is disabled because it can be CPU-consuming.
+    Uncomment the next CSS line to re-enable it.
+    */
+    /* animation: burn 4s infinite; */
+    width: 30vmin;
+    aspect-ratio: 1;
+    background:
+            radial-gradient(100% 100% at 90% 90%, #000, #0003 20%, #0000 50%),
+            radial-gradient(farthest-side at 110% 120%, #000, #631, #fc0, #0000),
+            radial-gradient(at 100% 100%, #fc08, #ff00 60%),
+            linear-gradient(135deg, #fff0 20%, #ff0)
+;
+    background-color: #ffe;
+    border-radius: 2% 87% 45% 85%;
+    box-shadow:
+            inset 2vmin 2vmin 2vmin -1.5vmin #fa08,
+            inset  -1vmin -1vmin 4vmin -2vmin #00f7,
+            inset  0vmin  -1vmin 4vmin -2vmin #00f8,
+            inset  -1vmin -1vmin 2vmin -2vmin #000,
+            inset  -1vmin -1vmin 3vmin -1vmin #000,
+            inset  -1vmin -1vmin 2vmin #fc08,
+            -0.5vmin -0.5vmin 1vmin #ff08,
+            -1vmin -1vmin 2vmin #fc08,
+            -2vmin -2vmin 10vmin 1vmin #000,
+            -4vmin -4vmin 35vmin 3vmin #fa08;
+    filter: blur(0.1vmin);
+    transform: rotate(45deg);
+    /* demo */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -15vmin) rotate(45deg);
+}
+
+.match::after {
+    content: "";
+    display: block;
+    width: 6vmin;
+    height: 5vmin;
+    background:
+            linear-gradient(45deg, #f002, #fff0),
+            linear-gradient(to right, #fff, #fa0 3%, #f34 20%, #000);
+    top: 24vmin;
+    left: 24vmin;
+    border-radius: 100% / 120% 80% 80% 120%;
+    position: absolute;
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: 0 0 5vmin 3vmin #000a, inset -1vmin 0 1.5vmin #000;
+}
+
+.match::before {
+    content: "";
+    display: block;
+    width: 20vmin;
+    height: 3vmin;
+    background: linear-gradient(to right, #f808, #321, #000);
+    top: 32vmin;
+    left: 32vmin;
+    position: absolute;
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: 0 0 5vmin 3vmin #000a, inset -1vmin 0 1.5vmin #000a
+}

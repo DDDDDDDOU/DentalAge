@@ -10,7 +10,6 @@ import {DentalPredict} from "../../ServiceModule/NetService/PredService";
 
 const {Dragger} = Upload;
 
-
 export default class FileUpLoaderView extends React.Component {
     constructor(props) {
         super(props);
@@ -159,3 +158,4 @@ export default class FileUpLoaderView extends React.Component {
         )
     }
 }
+

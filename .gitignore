@@ -17,3 +17,5 @@
 /frontend/dentalage/src/Instance/COSSettings/COSInstance.js
 
 /backend/springBackend/src/main/resources/application.yml
+
+*.lock

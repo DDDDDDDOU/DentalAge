@@ -1,8 +1,9 @@
 import React from "react";
 import FileUpLoaderView from "../View/DentalAge/FileUpLoaderView";
 import {Spin} from "antd";
+import BaseComponent from "../BaseUtil/BaseComponent"
 
-export default class DentalAgeController extends React.Component {
+export default class DentalAgeController extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,3 +30,4 @@ export default class DentalAgeController extends React.Component {
     }
 
 }
+

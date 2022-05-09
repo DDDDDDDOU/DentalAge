@@ -5,8 +5,11 @@ import {getOppenId, getWXTicket} from "../../ServiceModule/NetService/UserServic
 import {StringProcessor} from "../../ServiceModule/Processor/StringProcessor";
 import {Spin} from "antd";
 import URLInstance from "../../Instance/URLInstance/URLInstance";
+import UserInstance from "../../Instance/UserInstance/UserInstance";
+import {successNotification} from "../../ServiceModule/Utils/Notifications";
 
 export default class HomePageView extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -16,6 +19,7 @@ export default class HomePageView extends React.Component {
     }
 
     componentWillMount() {
+        UserInstance.getInstance().clear()
         getWXTicket((res)=>{
             this.setState({
                 ticket:res.data.ticket,
@@ -29,12 +33,21 @@ export default class HomePageView extends React.Component {
     getUserOppenId = () =>{
         if (StringProcessor.Length(this.state.sceneStr)) {
             let interval = setInterval(()=>{
-                getOppenId(this.state.sceneStr,(res)=>{
-                    if(parseInt(res.code) === 200) {
-                        window.location.href = URLInstance.getInstance().constructFrontendURL("dentalage")
-                        clearInterval(interval)
-                    }
-                })
+                if ( !UserInstance.getInstance().isLogin()) {
+                    getOppenId(this.state.sceneStr,(res)=>{
+                        if(parseInt(res.code) === 200) {
+                            if (StringProcessor.Length(res.data.openId)) {
+                                UserInstance.getInstance().loginWithOpenId(res.data.openId)
+                                UserInstance.getInstance()
+                                successNotification("登陆成功！","即将跳转......",1)
+                                setTimeout(()=>{
+                                    window.location.href = URLInstance.getInstance().constructFrontendURL("dentalage")
+                                },1000)
+                                clearInterval(interval)
+                            }
+                        }
+                    })
+                }
             },2000)
         }
 
@@ -61,3 +74,4 @@ export default class HomePageView extends React.Component {
         )
     }
 }
+

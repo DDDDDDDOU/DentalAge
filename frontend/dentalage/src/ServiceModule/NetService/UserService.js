@@ -17,7 +17,6 @@ export  function getWXTicket(callback){
 export  function getOppenId(sceneStr,callback){
     let URL=URLInstance.getInstance().BackendServerURL+"qrCodeFirstLogin/getOpenId?eventKey="+sceneStr
     axios.get(URL).then((res)=>{
-        console.log(res)
         responceDispatcher(res,callback)
     }).catch(err=>{
 

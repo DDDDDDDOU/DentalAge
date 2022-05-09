@@ -2,6 +2,7 @@
 export default class UserInstance {
     constructor () {
         this.userName = 'doujiawei'
+        this.oppenId = ""
     }
 
 

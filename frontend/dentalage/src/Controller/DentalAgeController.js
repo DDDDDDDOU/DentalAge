@@ -19,7 +19,7 @@ export default class DentalAgeController extends React.Component {
     render() {
         return (
             <div>
-                <Spin spinning={this.state.loading} delay={500}>
+                <Spin spinning={this.state.loading} delay={0}>
                     <FileUpLoaderView
                         setLoadingState={this.setLoadingState}
                     />

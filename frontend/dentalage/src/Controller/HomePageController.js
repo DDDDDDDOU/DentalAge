@@ -3,6 +3,7 @@ import React from "react";
 import logo from "../logo.svg";
 import '../App.css';
 import DefaultCSSView from "../View/DefaultCSSView";
+import HomePageView from "../View/HomePageViews/HomePageView";
 
 export default class HomePageController extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class HomePageController extends React.Component {
         return (
             <div className="App">
                 <DefaultCSSView></DefaultCSSView>
+                <HomePageView></HomePageView>
             </div>
         )
     }

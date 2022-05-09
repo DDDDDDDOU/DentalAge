@@ -14,5 +14,6 @@
 
 *.pth
 
+/frontend/dentalage/src/Instance/COSSettings/COSInstance.js
 
-COSInstance.js
+/backend/springBackend/src/main/resources/application.yml

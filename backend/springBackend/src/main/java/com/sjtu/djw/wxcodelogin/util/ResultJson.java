@@ -16,6 +16,9 @@ public class ResultJson {
     private final static int RESULT_ERROR = 500;
     private final static String RESULT_ERROR_MSG = "服务器内部异常";
 
+    private final static int LOGIN_ERROR = 250;
+
+    private final static String LOGIN_ERROR_MSG = "登录失败或身份过期，请重新登陆";
     private int code;
     private String msg;
     private long count;
@@ -64,5 +67,13 @@ public class ResultJson {
 
     public static ResultJson error(){
         return new ResultJson(RESULT_ERROR,RESULT_ERROR_MSG);
+    }
+
+    public static ResultJson loginError(String msg){
+        return new ResultJson(LOGIN_ERROR,msg);
+    }
+
+    public static ResultJson loginError(){
+        return new ResultJson(RESULT_ERROR,LOGIN_ERROR_MSG);
     }
 }

@@ -1,7 +1,7 @@
 package com.sjtu.djw.wxcodelogin.controller;
 
 
-import com.sjtu.djw.wxcodelogin.entity.User;
+import com.sjtu.djw.wxcodelogin.annotation.TokenRequired;
 import com.sjtu.djw.wxcodelogin.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,9 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @TokenRequired
     @RequestMapping("/getUserById")
-    public User getUserById() {
-        User u = userMapper.findUserById(1);
-        return u;
+    public String getUserById() {
+        return "1231231";
     }
 }

@@ -2,12 +2,12 @@ package com.sjtu.djw.wxcodelogin.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.sjtu.djw.wxcodelogin.entity.CodeLoginKey;
+import com.sjtu.djw.wxcodelogin.entity.User;
+import com.sjtu.djw.wxcodelogin.mapper.TokenMapper;
+import com.sjtu.djw.wxcodelogin.mapper.UserMapper;
 import com.sjtu.djw.wxcodelogin.properties.WxConfig;
-import com.sjtu.djw.wxcodelogin.util.CodeLoginUtil;
-import com.sjtu.djw.wxcodelogin.util.HttpClientUtil;
-import com.sjtu.djw.wxcodelogin.util.ResultJson;
-import com.sjtu.djw.wxcodelogin.util.AccessTokenUtil;
+import com.sjtu.djw.wxcodelogin.service.UserService;
+import com.sjtu.djw.wxcodelogin.util.*;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Draco
@@ -39,8 +37,15 @@ public class QrCodeLoginFirstController {
     @Autowired
     private WxConfig wxConfig;
 
-    // 模拟数据库存储或者缓存存储
-    Map<String, CodeLoginKey> loginMap = new ConcurrentHashMap<>(64);
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TokenMapper tokenMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
 
     /**
      *  获取登录二维码
@@ -126,13 +131,9 @@ public class QrCodeLoginFirstController {
         String messageEvent=message.getEvent();								    //消息事件
         // openid
         String fromUser=message.getFromUser();									//发送者帐号
-        String touser=message.getToUser();										//开发者微信号
-        String text=message.getContent();										//文本消息  文本内容
         // 生成二维码时穿过的特殊参数
         String eventKey=message.getEventKey();									//二维码参数
 
-        String uuid="";															//从二维码参数中获取uuid通过该uuid可通过websocket前端传数据
-        String userid="";
 
         //if判断，判断查询
         JSONObject jsonObject = new JSONObject();
@@ -140,6 +141,7 @@ public class QrCodeLoginFirstController {
         if(messageType.equals("event")){
             jsonObject = null;
             //先根据openid从数据库查询  => 从自己数据库中查取用户信息 => jsonObject
+            User user = userMapper.findUserByOpenId(fromUser);
             if(messageEvent.equals("SCAN")){
                 //扫描二维码
                 //return "欢迎回来";
@@ -149,23 +151,30 @@ public class QrCodeLoginFirstController {
                 //return "谢谢您的关注";
             }
             //没有该用户
-            if(jsonObject==null){
-                //从微信上中拉取用户信息
-                String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" +AccessTokenUtil.getInstance(wxConfig).getAccessToken() +
+            //从微信上中拉取用户信息
+            String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" +AccessTokenUtil.getInstance(wxConfig).getAccessToken() +
                         "&openid=" + fromUser +
                         "&lang=zh_CN";
-                String result = HttpClientUtil.doGet(url);
-                jsonObject = JSONObject.parseObject(result);
-                /**
-                 * 用户信息处理....
-                 */
-            }
+            String result = HttpClientUtil.doGet(url);
+            jsonObject = JSONObject.parseObject(result);
+
             // 扫码成功，存入缓存
-            loginMap.put(eventKey,new CodeLoginKey(eventKey,fromUser));
+            if (user == null) {
+                userMapper.insert(eventKey,fromUser);
+                user = userMapper.findUserByOpenId(fromUser);
+            }
+            String token = JwtUtil.sign(eventKey,fromUser, user.getId());
+            String findToken = tokenMapper.findTokenByUserId(user.getId());
+            if(findToken == null) {
+                tokenMapper.insert(user.getId(),token,eventKey);
+            } else {
+                tokenMapper.updateTokenByUserId(token,user.getId(),eventKey);
+            }
+            jsonObject.put("token",token);
             return jsonObject;
+
         }
         return jsonObject;
-        //log.info("消息类型:{},消息事件:{},发送者账号:{},接收者微信:{},文本消息:{},二维码参数：{}",messageType,messageEvent,fromUser,touser,text,eventKey);
     }
 
     /**
@@ -173,14 +182,15 @@ public class QrCodeLoginFirstController {
      * @param eventKey
      * @return
      */
-    @RequestMapping("getOpenId")
-    public ResultJson getOpenId(String eventKey){
-        if(loginMap.get(eventKey) == null){
+    @RequestMapping("login")
+    public ResultJson login(String eventKey){
+        String token = tokenMapper.findTokenByEventKey(eventKey);
+        if (token != null) {
+            tokenMapper.deleteTokenByEventKey(eventKey);
+            return ResultJson.ok(token);
+        } else {
             return ResultJson.error("未扫码成功！") ;
         }
-        CodeLoginKey codeLoginKey = loginMap.get(eventKey);
-        loginMap.remove(eventKey);
-        return ResultJson.ok(codeLoginKey);
     }
 
 

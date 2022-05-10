@@ -19,8 +19,6 @@ public class AccessTokenUtil {
     private static Date date;
 
     private static Date currentDate;
-//    @Autowired
-//    private static WxConfig wxConfig;
 
     private static AccessTokenUtil instance;
 

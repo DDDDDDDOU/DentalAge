@@ -1,7 +1,7 @@
 import React from "react";
 
 import "../../CSS/HomePageViewCSS.css"
-import {getOppenId, getWXTicket} from "../../ServiceModule/NetService/UserService";
+import {getWXTicket, login} from "../../ServiceModule/NetService/UserService";
 import {StringProcessor} from "../../ServiceModule/Processor/StringProcessor";
 import {Spin} from "antd";
 import URLInstance from "../../Instance/URLInstance/URLInstance";
@@ -25,23 +25,23 @@ export default class HomePageView extends React.Component {
                 ticket:res.data.ticket,
                 sceneStr:res.data.sceneStr
             },() => {
-                this.getUserOppenId()
+                this.Login()
             })
         })
     }
 
-    getUserOppenId = () =>{
+    Login = () =>{
         if (StringProcessor.Length(this.state.sceneStr)) {
             let interval = setInterval(()=>{
                 if ( !UserInstance.getInstance().isLogin()) {
-                    getOppenId(this.state.sceneStr,(res)=>{
+                    login(this.state.sceneStr,(res)=>{
                         if(parseInt(res.code) === 200) {
-                            if (StringProcessor.Length(res.data.openId)) {
-                                UserInstance.getInstance().loginWithOpenId(res.data.openId)
-                                UserInstance.getInstance()
+                            if (StringProcessor.Length(res.msg)) {
+                                console.log(res.msg)
+                                UserInstance.getInstance().loginWithToken(res.msg)
                                 successNotification("登陆成功！","即将跳转......",1)
                                 setTimeout(()=>{
-                                    window.location.href = URLInstance.getInstance().constructFrontendURL("dentalage")
+                                    // window.location.href = URLInstance.getInstance().constructFrontendURL("dentalage")
                                 },1000)
                                 clearInterval(interval)
                             }

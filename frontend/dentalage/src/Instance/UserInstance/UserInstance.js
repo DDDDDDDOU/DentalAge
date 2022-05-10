@@ -4,7 +4,7 @@ export default class UserInstance {
     constructor () {
         this.storageKey = {
             userName:"userName",
-            openId:"openId"
+            token:"token"
         }
     }
 
@@ -21,16 +21,16 @@ export default class UserInstance {
         return sessionStorage.getItem(this.storageKey.userName)
     }
 
-    loginWithOpenId(openId) {
-        sessionStorage.setItem(this.storageKey.openId,openId)
+    loginWithToken(token) {
+        sessionStorage.setItem(this.storageKey.token,token)
     }
 
-    getOpenId () {
-        return sessionStorage.getItem(this.storageKey.openId)
+    getToken () {
+        return sessionStorage.getItem(this.storageKey.token)
     }
 
     isLogin (){
-        return StringProcessor.Length(this.getOpenId())
+        return StringProcessor.Length(this.getToken())
     }
 
     clear () {

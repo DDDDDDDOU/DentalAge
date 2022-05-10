@@ -12,7 +12,10 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE id = #{id}")
     User findUserById(@Param("id") Integer id);
 
-    @Insert("INSERT INTO T_USER(NAME, PASSWORD, PHONE) VALUES(#{name}, #{password}, #{phone})")
-    int insert(@Param("name") String name, @Param("password") String password, @Param("phone") String phone);
+    @Select("SELECT * FROM user WHERE openId = #{openId}")
+    User findUserByOpenId(@Param("openId") String openId);
+
+    @Insert("INSERT INTO user(openId, eventKey) VALUES(#{openId}, #{eventKey})")
+    int insert(@Param("eventKey") String eventKey, @Param("openId") String openId);
 
 }

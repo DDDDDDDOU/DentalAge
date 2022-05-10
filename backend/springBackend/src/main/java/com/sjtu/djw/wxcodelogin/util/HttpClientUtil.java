@@ -1,4 +1,4 @@
-package com.sjtu.dyw.wxcodelogin.util;
+package com.sjtu.djw.wxcodelogin.util;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;

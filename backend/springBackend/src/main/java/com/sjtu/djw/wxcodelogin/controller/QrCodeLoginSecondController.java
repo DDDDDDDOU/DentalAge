@@ -1,9 +1,9 @@
-package com.sjtu.dyw.wxcodelogin.controller;
+package com.sjtu.djw.wxcodelogin.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.sjtu.dyw.wxcodelogin.properties.WxConfig;
-import com.sjtu.dyw.wxcodelogin.util.HttpClientUtil;
+import com.sjtu.djw.wxcodelogin.properties.WxConfig;
+import com.sjtu.djw.wxcodelogin.util.HttpClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

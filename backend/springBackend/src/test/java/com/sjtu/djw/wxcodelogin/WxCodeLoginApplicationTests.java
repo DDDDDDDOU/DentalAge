@@ -1,4 +1,4 @@
-package com.sjtu.dyw.wxcodelogin;
+package com.sjtu.djw.wxcodelogin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

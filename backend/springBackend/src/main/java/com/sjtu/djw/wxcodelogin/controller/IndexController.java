@@ -1,6 +1,6 @@
-package com.sjtu.dyw.wxcodelogin.controller;
+package com.sjtu.djw.wxcodelogin.controller;
 
-import com.sjtu.dyw.wxcodelogin.properties.WxConfig;
+import com.sjtu.djw.wxcodelogin.properties.WxConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

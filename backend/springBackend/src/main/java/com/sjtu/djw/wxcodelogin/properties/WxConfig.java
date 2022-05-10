@@ -1,4 +1,4 @@
-package com.sjtu.dyw.wxcodelogin.properties;
+package com.sjtu.djw.wxcodelogin.properties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

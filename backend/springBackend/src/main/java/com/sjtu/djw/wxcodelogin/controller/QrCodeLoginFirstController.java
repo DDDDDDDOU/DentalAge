@@ -1,13 +1,13 @@
-package com.sjtu.dyw.wxcodelogin.controller;
+package com.sjtu.djw.wxcodelogin.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.sjtu.dyw.wxcodelogin.entity.CodeLoginKey;
-import com.sjtu.dyw.wxcodelogin.properties.WxConfig;
-import com.sjtu.dyw.wxcodelogin.util.AccessTokenUtil;
-import com.sjtu.dyw.wxcodelogin.util.CodeLoginUtil;
-import com.sjtu.dyw.wxcodelogin.util.HttpClientUtil;
-import com.sjtu.dyw.wxcodelogin.util.ResultJson;
+import com.sjtu.djw.wxcodelogin.entity.CodeLoginKey;
+import com.sjtu.djw.wxcodelogin.properties.WxConfig;
+import com.sjtu.djw.wxcodelogin.util.CodeLoginUtil;
+import com.sjtu.djw.wxcodelogin.util.HttpClientUtil;
+import com.sjtu.djw.wxcodelogin.util.ResultJson;
+import com.sjtu.djw.wxcodelogin.util.AccessTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import org.springframework.beans.factory.annotation.Autowired;

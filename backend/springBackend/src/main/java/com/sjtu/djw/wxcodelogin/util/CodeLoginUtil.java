@@ -1,4 +1,4 @@
-package com.sjtu.dyw.wxcodelogin.util;
+package com.sjtu.djw.wxcodelogin.util;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package com.sjtu.dyw.wxcodelogin.entity;
+package com.sjtu.djw.wxcodelogin.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
